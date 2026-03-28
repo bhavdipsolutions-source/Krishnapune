@@ -3,33 +3,849 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishna પુણા Homemade Food</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Krishna પુના - Homemade Food</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gold: #D4A574;
+    --primary-warm: #F4E8D8;
+    --accent-orange: #E8914A;
+    --accent-purple: #7B68A6;
+    --text-dark: #2C2414;
+    --text-light: #5D5147;
+    --border-accent: #D9A589;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--primary-warm) 0%, #FDF5E6 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%);
+        flex-direction: column;
+        gap: 0;
+        display: none;
+        padding: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu a {
+        padding: 12px 15px;
+        border-radius: 5px;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Page Container */
+.page {
+    display: none;
+    min-height: calc(100vh - 200px);
+    animation: fadeIn 0.4s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Page */
+.hero {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%);
+    padding: 50px 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    opacity: 0.95;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 15px 35px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: white;
+    color: var(--accent-orange);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: var(--accent-orange);
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.8);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    border-top: 5px solid var(--accent-orange);
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    color: var(--accent-purple);
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+/* Menu Page */
+.menu-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.menu-section-title {
+    font-size: 2.2em;
+    color: var(--accent-purple);
+    margin: 40px 0 25px 0;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--accent-orange);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px;
+    background: rgba(255,255,255,0.85);
+    border-left: 5px solid var(--accent-orange);
+    border-radius: 8px;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.menu-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.95);
+}
+
+.item-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    flex: 1;
+}
+
+.item-price {
+    color: var(--accent-orange);
+    font-weight: 700;
+    font-size: 1.1em;
+    min-width: 90px;
+    text-align: right;
+}
+
+/* Gallery Page */
+.gallery-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.gallery-title {
+    font-size: 2.2em;
+    color: var(--accent-purple);
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    color: white;
+}
+
+.gallery-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.gallery-info h3 {
+    color: var(--accent-purple);
+    margin-bottom: 8px;
+}
+
+.gallery-info p {
+    color: var(--text-light);
+    font-size: 0.9em;
+}
+
+/* Contact Page */
+.contact-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.contact-title {
+    font-size: 2.2em;
+    color: var(--accent-purple);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.contact-box {
+    background: rgba(255,255,255,0.85);
+    padding: 25px;
+    border-radius: 12px;
+    border-top: 5px solid var(--accent-orange);
+}
+
+.contact-box h3 {
+    color: var(--accent-purple);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.contact-box p {
+    color: var(--text-light);
+    line-height: 1.9;
+}
+
+.whatsapp-link {
+    color: var(--accent-orange);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s;
+}
+
+.whatsapp-link:hover {
+    text-decoration: underline;
+}
+
+.contact-form {
+    background: rgba(255,255,255,0.85);
+    padding: 30px;
+    border-radius: 12px;
+    border-top: 5px solid var(--accent-purple);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-accent);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(232, 145, 74, 0.1);
+}
+
+.form-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--accent-orange), #D68A3D);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(232, 145, 74, 0.3);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-image {
+        height: 150px;
+        font-size: 3em;
+    }
+}
+
+/* Footer */
+footer {
+    background: var(--text-dark);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 50px;
+}
+
+.footer-text {
+    font-size: 0.9em;
+    line-height: 1.8;
+}
+
+.footer-text strong {
+    color: var(--primary-gold);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Krishna Pūna Homemade Food</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Our Specialties</h2>
-            <p>Experience the taste of homemade food made with love and care.</p>
-        </section>
-        <section>
-            <h2>Why Choose Us?</h2>
-            <p>We provide nourishing homemade meals that cater to your taste buds.</p>
-        </section>
-    </main>
+    <nav class="navbar">
+        <a href="#" class="logo" onclick="navigateTo('home'); return false;">🏠 Krishna પુના</a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#" class="nav-link active" data-nav="home" onclick="navigateTo('home'); return false;">Home</a></li>
+            <li><a href="#" class="nav-link" data-nav="about" onclick="navigateTo('about'); return false;">About Us</a></li>
+            <li><a href="#" class="nav-link" data-nav="menu" onclick="navigateTo('menu'); return false;">Menu</a></li>
+            <li><a href="#" class="nav-link" data-nav="contact" onclick="navigateTo('contact'); return false;">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>Krishna પુના</h1>
+            <p>🏠 Authentic Homemade Gujarati Food Made with Love</p>
+            <p style="font-size: 0.9em;">Authentic Gujarati Sweets &amp; Savories</p>
+            <div class="hero-cta">
+                <a href="https://chat.whatsapp.com/Brj4LAQBx9Y0WublZia3hu?mode=gi_t"
+                   target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                   📱 Join WhatsApp Group
+                </a>
+                <button type="button" class="btn btn-secondary" onclick="navigateTo('menu')">📋 View Menu</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 20px; max-width: 500px; margin: 0 auto;">
+            <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 1.4em;">👥 Join Our WhatsApp Group</h2>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 0.95em;">Scan the QR code to join Krishna પુના group</p>
+                <a href="https://chat.whatsapp.com/Brj4LAQBx9Y0WublZia3hu?mode=gi_t" target="_blank" rel="noopener noreferrer">
+                    <div style="background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px; display: inline-block;">
+                        <img src="Group%20QR.png" alt="Krishna પુના WhatsApp Group QR" style="width: 220px; max-width: 100%; height: auto; border-radius: 8px; background: white; padding: 5px;">
+                    </div>
+                </a>
+                <p style="color: var(--text-light); font-size: 0.9em;">
+                    <strong>Scan with WhatsApp camera</strong> or <a href="https://chat.whatsapp.com/Brj4LAQBx9Y0WublZia3hu?mode=gi_t" target="_blank" rel="noopener noreferrer" class="whatsapp-link">click here to join</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🥘</div>
+                <h3>100% Homemade</h3>
+                <p>Made with love and pure ingredients. No preservatives, no additives.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Fresh Daily</h3>
+                <p>Prepared fresh every week. Visit our WhatsApp group for updates.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🍳</div>
+                <h3>Traditional Recipes</h3>
+                <p>Authentic Gujarati taste passed down through generations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Fair Prices</h3>
+                <p>Direct from home kitchen. No middleman, best value for money.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Easy Delivery</h3>
+                <p>Arrange courier or local pickup. Flexible options for you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Community</h3>
+                <p>Join our WhatsApp group with fellow food lovers. Special offers inside!</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="page">
+        <div class="hero">
+            <h1>About Krishna પુના</h1>
+            <p>Homemade Gujarati food from our kitchen in Pune — made with the same care as at home.</p>
+        </div>
+        <div style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+            <div style="background: rgba(255,255,255,0.85); padding: 28px; border-radius: 12px; border-top: 5px solid var(--accent-orange); margin-bottom: 28px;">
+                <h2 style="color: var(--accent-purple); margin-bottom: 12px;">Our story</h2>
+                <p style="color: var(--text-light); line-height: 1.85;">
+                    Krishna પુના brings you authentic Gujarati sweets and savories prepared in a home kitchen.
+                    We focus on traditional recipes, quality ingredients, and fair pricing — with updates and orders coordinated through our WhatsApp community.
+                </p>
+            </div>
+        </div>
+        <div class="gallery-container">
+            <h1 class="gallery-title">🖼️ Our Products</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">🥘</div>
+                    <div class="gallery-info">
+                        <h3>Cholafali</h3>
+                        <p>Crispy and delicious savory snack</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🥘</div>
+                    <div class="gallery-info">
+                        <h3>Handva</h3>
+                        <p>Traditional Gujarati cake</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🍯</div>
+                    <div class="gallery-info">
+                        <h3>Kaju Katli</h3>
+                        <p>Premium cashew sweet</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🍯</div>
+                    <div class="gallery-info">
+                        <h3>Coconut Ladoo</h3>
+                        <p>Homemade coconut balls</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🥘</div>
+                    <div class="gallery-info">
+                        <h3>Sev</h3>
+                        <p>Crispy gram flour noodles</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🍯</div>
+                    <div class="gallery-info">
+                        <h3>Mohanthal</h3>
+                        <p>Creamy gram flour sweet</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🥘</div>
+                    <div class="gallery-info">
+                        <h3>Fafda</h3>
+                        <p>Authentic Gujarati fafda</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">🍯</div>
+                    <div class="gallery-info">
+                        <h3>Ladoo Varieties</h3>
+                        <p>Multiple flavors available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu" class="page">
+        <div class="menu-container">
+            <h1 style="text-align: center; color: var(--accent-purple); margin: 30px 0; font-size: 2.5em;">📋 Our Menu</h1>
+            <div style="background: #FFF3CD; border-left: 5px solid #FF6B35; padding: 20px; border-radius: 8px; margin-bottom: 30px; color: var(--text-dark);">
+                <strong style="font-size: 1.1em;">⚠️ Important Note:</strong><br>
+                <p style="margin-top: 10px;">Prices shown are <strong>approximate</strong> and may vary based on:</p>
+                <p style="margin: 10px 0; margin-left: 20px;">• Seasonal availability of raw materials<br>
+                • Quality of ingredients used<br>
+                • Current market prices<br><br>
+                <strong style="color: var(--accent-orange);">Please confirm exact price with Krishnaben before ordering via WhatsApp group!</strong>
+                </p>
+            </div>
+            <div class="menu-section-title">🥘 Namkeen (Savories)</div>
+            <div class="menu-grid">
+                <div class="menu-item"><span class="item-name">Cholafali</span><span class="item-price">₹750/kg</span></div>
+                <div class="menu-item"><span class="item-name">Handva</span><span class="item-price">₹100/pc</span></div>
+                <div class="menu-item"><span class="item-name">Khaman</span><span class="item-price">₹400/kg</span></div>
+                <div class="menu-item"><span class="item-name">Khandvi</span><span class="item-price">₹400/kg</span></div>
+                <div class="menu-item"><span class="item-name">Sev</span><span class="item-price">₹450/kg</span></div>
+                <div class="menu-item"><span class="item-name">Sev Chivda</span><span class="item-price">₹450/kg</span></div>
+                <div class="menu-item"><span class="item-name">Makai Chivda</span><span class="item-price">₹500/kg</span></div>
+                <div class="menu-item"><span class="item-name">Gathiya</span><span class="item-price">₹750/kg</span></div>
+                <div class="menu-item"><span class="item-name">Fafda</span><span class="item-price">₹750/kg</span></div>
+                <div class="menu-item"><span class="item-name">Salty Sakar Para</span><span class="item-price">₹450/kg</span></div>
+                <div class="menu-item"><span class="item-name">Chakri</span><span class="item-price">₹450/kg</span></div>
+                <div class="menu-item"><span class="item-name">Namkeen Mathali</span><span class="item-price">₹450/kg</span></div>
+                <div class="menu-item"><span class="item-name">Dahi Wada</span><span class="item-price">₹70/plate</span></div>
+                <div class="menu-item"><span class="item-name">Khari Gundi</span><span class="item-price">₹450/kg</span></div>
+            </div>
+            <div class="menu-section-title">🍯 Sweets</div>
+            <div class="menu-grid">
+                <div class="menu-item"><span class="item-name">Kaju Katli</span><span class="item-price">₹1000/kg</span></div>
+                <div class="menu-item"><span class="item-name">Coconut Ladoo</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Mohanthal</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Mava Gujiya</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Sweet Sakar Para</span><span class="item-price">₹500/kg</span></div>
+                <div class="menu-item"><span class="item-name">Besan Ladoo</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Khajur Dryfruit Ladoo</span><span class="item-price">₹900/kg</span></div>
+                <div class="menu-item"><span class="item-name">Adadiya Pak</span><span class="item-price">₹900/kg</span></div>
+                <div class="menu-item"><span class="item-name">Bundi Ladoo</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Mungfali ki Barfi</span><span class="item-price">₹600/kg</span></div>
+                <div class="menu-item"><span class="item-name">Churma Ladoo</span><span class="item-price">₹600/kg</span></div>
+                <div class="menu-item"><span class="item-name">Sweet Khaja</span><span class="item-price">₹700/kg</span></div>
+                <div class="menu-item"><span class="item-name">Balushahi</span><span class="item-price">₹600/kg</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page">
+        <div class="contact-container">
+            <h1 class="contact-title">📱 Order &amp; Payment</h1>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="background: white; padding: 30px; border-radius: 15px; max-width: 400px; margin: 0 auto; box-shadow: 0 8px 25px rgba(0,0,0,0.1);">
+                    <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 1.3em;">💳 Payment QR Code</h2>
+                    <p style="color: var(--text-light); margin-bottom: 20px; font-size: 0.95em;">Scan to pay via UPI / Google Pay / PhonePe</p>
+                    <div style="background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-orange) 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <div style="width: 220px; height: 220px; margin: 0 auto; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1em; color: var(--text-light); padding: 15px; text-align: center;">
+                            <span>💳 Payment QR<br><br><small style="color: var(--accent-orange);">Coming Soon</small></span>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 0.9em;">
+                        <strong>Scan to make payment</strong> after placing your order
+                    </p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <a href="https://wa.me/918780970695" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #25D366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1em; transition: all 0.3s; box-shadow: 0 6px 20px rgba(37,211,102,0.3);">
+                    💬 Message Krishnaben on WhatsApp
+                </a>
+                <p style="color: var(--text-light); margin-top: 12px; font-size: 0.9em;">+91 87809 70695 (WhatsApp only)</p>
+            </div>
+            <div class="contact-form">
+                <h2 style="color: var(--accent-purple); margin-bottom: 8px; text-align: center;">📋 Place Your Order</h2>
+                <p style="color: var(--text-light); text-align: center; margin-bottom: 25px; font-size: 0.9em;">Fill in your details and order — it will open WhatsApp with your message ready to send!</p>
+                <form onsubmit="sendOrderWhatsApp(event)">
+                    <div class="form-group">
+                        <label for="orderName">Your Name *</label>
+                        <input type="text" id="orderName" placeholder="Enter your name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="orderList">Order List *</label>
+                        <textarea id="orderList" rows="5" placeholder="Example:&#10;Cholafali - 1 kg&#10;Kaju Katli - 500g&#10;Besan Ladoo - 1 kg" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit" style="background: #25D366;">💬 Send Order on WhatsApp</button>
+                </form>
+            </div>
+            <div class="contact-grid" style="margin-top: 40px;">
+                <div class="contact-box">
+                    <h3>📋 How to Order</h3>
+                    <p>
+                        <strong>1.</strong> Fill in your name &amp; order above<br>
+                        <strong>2.</strong> Click "Send Order on WhatsApp"<br>
+                        <strong>3.</strong> Confirm and send the message<br>
+                        <strong>4.</strong> Pay via QR code above<br>
+                        <strong>5.</strong> Pick up from home<br><br>
+                        <em>Simple &amp; Easy!</em>
+                    </p>
+                </div>
+                <div class="contact-box">
+                    <h3>📞 Contact</h3>
+                    <p>
+                        <strong>+91 87809 70695</strong><br><br>
+                        WhatsApp only<br>
+                        (No calls please)<br><br>
+                        <strong>Krishna પુના</strong><br>
+                        Homemade Food, Pune
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Krishna Pūna Homemade Food</p>
+        <div class="footer-text">
+            <strong>Krishna પુના</strong><br>
+            📱 WhatsApp: +91 87809 70695<br>
+            👥 Group Name: Krishna પુના<br>
+            💝 Handmade with Love • Pune<br><br>
+            <em>"Taste the warmth of home-cooked food"</em><br><br>
+            © 2026 Krishna પુના. All rights reserved.
+        </div>
     </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        function navigateTo(pageId) {
+            showPage(pageId);
+            updateActiveNav(pageId);
+            window.scrollTo(0, 0);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function updateActiveNav(pageId) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.nav === pageId) link.classList.add('active');
+            });
+        }
+
+        function sendOrderWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('orderName').value;
+            const orderList = document.getElementById('orderList').value;
+            const text = encodeURIComponent(`Hello Krishnaben!\n\nMy name is ${name}.\n\n📋 My Order:\n${orderList}\n\nPlease confirm availability and total price. Thank you! 🙏`);
+            window.open(`https://wa.me/918780970695?text=${text}`, '_blank');
+            e.target.reset();
+        }
+
+        updateActiveNav('home');
+    </script>
 </body>
 </html>
